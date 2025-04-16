@@ -4,11 +4,10 @@ import axios from 'axios';
 import './index.css';
 import 'tailwindcss';
 
-// Lazy-loaded components
 const ItemList = lazy(() => import('./components/ItemList'));
 const AddItemForm = lazy(() => import('./components/AddItemForm'));
 const SearchBar = lazy(() => import('./components/SearchBar'));
-const AuditLogsPage = lazy(() => import('./pages/auditLogs')); // ✅ correct path
+const AuditLogsPage = lazy(() => import('./pages/auditLogs'));
 
 function InventoryApp() {
   const [items, setItems] = useState([]);
@@ -25,16 +24,11 @@ function InventoryApp() {
       .catch(err => console.error(err));
   }, []);
 
-  const handleAddItem = async (newItem) => {
-    try {
-      const res = await axios.post('http://localhost:5000/api/items', newItem);
-      setItems([...items, res.data]);
-      setFilteredItems([]);
-      setSuccess('Item added!');
-      setError('');
-    } catch {
-      setError('Failed to add item.');
-    }
+  const handleAddItem = (newItem) => {
+    setItems([...items, newItem]); // ✅ Only update state, no POST here
+    setFilteredItems([]);
+    setSuccess('Item added!');
+    setError('');
   };
 
   const handleDeleteItem = async (id) => {
@@ -130,7 +124,6 @@ function InventoryApp() {
   );
 }
 
-// ✅ Export routes only (no <Router> here)
 export default function App() {
   return (
     <Suspense fallback={<div>Loading Page...</div>}>
