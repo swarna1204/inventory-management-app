@@ -42,12 +42,15 @@ MONGO_URI=your_mongodb_connection_string( i will provide the credentials seprate
     npm run dev
 
 ♿ Accessibility & SEO Focus
+
 Accessibility was a key priority. Semantic HTML tags (<header>, <main>, <section>) and ARIA attributes enhance screen reader compatibility. Keyboard navigation is fully supported, and all form controls are labeled. Color contrast meets WCAG 2.1 standards for readability. SEO is strengthened using descriptive page titles, meta descriptions, and structured headings. Lighthouse and manual testing were used to ensure compliance.
 
 🔒 Privacy and Tracking
+
 The system implements basic tracking by logging user actions such as item additions and deletions in an audit log. This tracking helps with accountability without collecting any personal or sensitive user data. No cookies or third-party trackers are used. This approach respects user privacy while ensuring that important actions can be monitored securely.
 
 🛡️ Security Considerations
+
 This app may face threats like:
 
 🧨 NoSQL Injection
