@@ -8,9 +8,9 @@ const morgan = require("morgan");
 const itemRoutes = require('./routes/itemRoutes'); // Import itemRoutes once
 
 dotenv.config();
-connectDB(); // Ensure your DB connection is established
+connectDB();
 
-// Configure CORS to allow requests from both localhost:5173 and localhost:5174 (adjust if necessary)
+// Configuring the CORS to allow requests from both localhost:5173 and localhost:5174 
 app.use(cors({
     origin: ['http://localhost:5173', 'http://localhost:5174'], // Allow requests from both frontend ports
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
@@ -26,10 +26,10 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://trusted-cdn.com"], // Add your own trusted CDN(s)
+            scriptSrc: ["'self'", "https://trusted-cdn.com"],
             styleSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https://your-image-source.com"], // Adjust domain
-            connectSrc: ["'self'", "http://localhost:5000"], // Your API/backend origin
+            connectSrc: ["'self'", "http://localhost:5000"], //  API/backend origin
         },
     },
     referrerPolicy: { policy: "no-referrer" },

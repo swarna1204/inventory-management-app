@@ -19,7 +19,7 @@ const addItem = async (req, res) => {
         const newItem = new Item(req.body);
         await newItem.save();
 
-        // 🔥 Log the action
+        // 🔥 Log  action
         await AuditLog.create({
             action: 'ADD_ITEM',
             itemId: newItem._id,
@@ -79,7 +79,7 @@ const updateItem = async (req, res) => {
             return res.status(404).json({ error: "Item not found" });
         }
 
-        // 🔥 Log the action
+        // 🔥 Log  action
         await AuditLog.create({
             action: 'UPDATE_ITEM',
             itemId: updatedItem._id,
@@ -104,7 +104,7 @@ const deleteItem = async (req, res) => {
         const item = await Item.findByIdAndDelete(id);
         if (!item) return res.status(404).json({ error: "Item not found" });
 
-        // 🔥 Log the action
+        // 🔥 Log  action
         await AuditLog.create({
             action: 'DELETE_ITEM',
             itemId: item._id,
