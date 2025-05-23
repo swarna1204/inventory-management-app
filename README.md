@@ -53,11 +53,12 @@ The system implements basic tracking by logging user actions such as item additi
 
 This app may face threats like:
 
-🧨 NoSQL Injection
+🧨 NoSQL Injection( have not implemented in the project)
 
-💉 Cross-Site Scripting (XSS)
+💉 Cross-Site Scripting (XSS) ( have implemented in the project)
 
-To protect against NoSQL injection, all API input is validated and sanitized using express-validator and Mongoose schema enforcement. For example, fields are type-checked and unknown keys are ignored. This prevents malformed queries from reaching the database. Additional middleware such as helmet and CORS configuration adds layers of protection against common vulnerabilities.
+1. To protect against NoSQL injection, all API input is validated and sanitized using express-validator and Mongoose schema enforcement. For example, fields are type-checked and unknown keys are ignored. This prevents malformed queries from reaching the database. ( Not Mitigated )
+2. To protect against Cross-Site Scripting (XSS), the app uses the helmet middleware with a custom Content Security Policy (CSP). This restricts script, style, and image sources to trusted domains only, reducing the risk of malicious code execution. For example, scriptSrc is limited to 'self' and a trusted CDN, while inline styles are controlled. This ensures that injected scripts from untrusted sources won’t run in the browser. Additionally, JSON inputs are parsed strictly, and CORS settings are locked to known frontend origins, further reducing surface area for attack. ( Mitigated )
 
 📄 License
 MIT License
