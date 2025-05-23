@@ -7,7 +7,7 @@ import 'tailwindcss';
 const ItemList = lazy(() => import('./components/ItemList'));
 const AddItemForm = lazy(() => import('./components/AddItemForm'));
 const SearchBar = lazy(() => import('./components/SearchBar'));
-const AuditLogsPage = lazy(() => import('./pages/auditLogs'));
+const AuditLogsPage = lazy(() => import('./pages/AuditLogs'));
 
 function InventoryApp() {
   const [items, setItems] = useState([]);
@@ -25,7 +25,7 @@ function InventoryApp() {
   }, []);
 
   const handleAddItem = (newItem) => {
-    setItems([...items, newItem]); // ✅ Only update state, no POST here
+    setItems([...items, newItem]);
     setFilteredItems([]);
     setSuccess('Item added!');
     setError('');
@@ -73,7 +73,7 @@ function InventoryApp() {
   };
 
   return (
-    <div className="min-h-screen bg-[#E1EEBC] text-gray-900 p-4 relative">
+    <main className="min-h-screen bg-[#E1EEBC] text-gray-900 p-4 relative">
       <div className="max-w-5xl mx-auto pb-24">
         <h1 className="text-4xl font-bold text-center mb-6 text-[#328E6E]">
           Fruits & Vegetables Inventory
@@ -102,16 +102,18 @@ function InventoryApp() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded shadow mb-6 border border-[#90C67C]">
+        <section className="bg-white p-6 rounded shadow mb-6 border border-[#90C67C]">
           <h2 className="text-xl font-semibold mb-4 text-[#328E6E]">Add New Item</h2>
           <Suspense fallback={<div>Loading Add Item Form...</div>}>
             <AddItemForm onItemAdded={handleAddItem} />
           </Suspense>
-        </div>
+        </section>
 
-        <Suspense fallback={<div>Loading Items...</div>}>
-          <ItemList items={displayedItems} onDelete={handleDeleteItem} onUpdate={handleUpdateItem} />
-        </Suspense>
+        <section>
+          <Suspense fallback={<div>Loading Items...</div>}>
+            <ItemList items={displayedItems} onDelete={handleDeleteItem} onUpdate={handleUpdateItem} />
+          </Suspense>
+        </section>
       </div>
 
       <button
@@ -120,7 +122,7 @@ function InventoryApp() {
       >
         Check Audit Logs
       </button>
-    </div>
+    </main>
   );
 }
 
