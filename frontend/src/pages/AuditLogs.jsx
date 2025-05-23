@@ -64,8 +64,10 @@ function AuditLogs() {
         <Link
           to="/"
           className="mt-6 inline-block text-[#328E6E] hover:underline font-medium"
+          aria-label="Return to main inventory dashboard"
+          title="Go back to inventory dashboard"
         >
-          ← Back to Dashboard
+          ← Return to Inventory Dashboard
         </Link>
       </div>
     </div>

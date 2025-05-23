@@ -20,9 +20,6 @@ const AddItemForm = ({ onItemAdded }) => {
       category: category.trim().toLowerCase()
     };
 
-    // 🧪 Log the final item to check what's being sent
-    console.log('Submitting item:', newItem);
-
     try {
       const response = await axios.post('http://localhost:5000/api/items', newItem);
       onItemAdded(response.data);
@@ -43,50 +40,81 @@ const AddItemForm = ({ onItemAdded }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <input
-        className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
-        placeholder="Item Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        required
-      />
-      <input
-        className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
-        placeholder="Quantity"
-        value={quantity}
-        onChange={e => setQuantity(e.target.value)}
-        type="number"
-        min="0"
-        required
-      />
-      <input
-        className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
-        placeholder="Price"
-        value={price}
-        onChange={e => setPrice(e.target.value)}
-        type="number"
-        min="0"
-        step="0.01"
-        required
-      />
-      <input
-        className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
-        type="date"
-        value={expiryDate}
-        onChange={e => setExpiryDate(e.target.value)}
-        required
-      />
-      <select
-        className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
-        value={category}
-        onChange={e => setCategory(e.target.value)}
-        required
-      >
-        <option value="">Select Category</option>
-        <option value="fruit">Fruit</option>
-        <option value="vegetable">Vegetable</option>
-      </select>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="item-name" className="block text-sm font-medium text-gray-700">
+          Item Name
+        </label>
+        <input
+          id="item-name"
+          className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
+          Quantity
+        </label>
+        <input
+          id="quantity"
+          className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
+          value={quantity}
+          onChange={e => setQuantity(e.target.value)}
+          type="number"
+          min="0"
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+          Price
+        </label>
+        <input
+          id="price"
+          className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
+          value={price}
+          onChange={e => setPrice(e.target.value)}
+          type="number"
+          min="0"
+          step="0.01"
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="expiry-date" className="block text-sm font-medium text-gray-700">
+          Expiry Date
+        </label>
+        <input
+          id="expiry-date"
+          className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
+          type="date"
+          value={expiryDate}
+          onChange={e => setExpiryDate(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+          Category
+        </label>
+        <select
+          id="category"
+          className="w-full p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
+          value={category}
+          onChange={e => setCategory(e.target.value)}
+          required
+        >
+          <option value="">Select Category</option>
+          <option value="fruit">Fruit</option>
+          <option value="vegetable">Vegetable</option>
+        </select>
+      </div>
 
       <button
         type="submit"

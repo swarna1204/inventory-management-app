@@ -19,11 +19,17 @@ const SearchBar = ({ onResult }) => {
 
   return (
     <div className="flex items-center gap-2 w-full">
+      <label htmlFor="search" className="sr-only">
+        Search item by name
+      </label>
       <input
+        id="search"
+        type="text"
         className="flex-1 p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring focus:ring-[#90C67C]"
         placeholder="Search item by name"
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
+        aria-label="Search item by name"
       />
       <button
         onClick={handleSearch}
