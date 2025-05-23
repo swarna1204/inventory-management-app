@@ -21,7 +21,7 @@ const ItemList = ({ items, onDelete, onUpdate }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {items.map(item => (
         <section key={item._id} className="p-4 bg-white rounded shadow border border-[#90C67C]" aria-labelledby={`item-${item._id}`}>
-          <h3 id={`item-${item._id}`} className="text-lg font-bold text-[#328E6E]">{item.name}</h3>
+          <h3 id={`item-${item._id}`} className="text-lg font-bold text-[#20604f]">{item.name}</h3>
           {editingId === item._id ? (
             <>
               <label className="block mt-2 text-sm font-medium text-gray-700">
@@ -45,7 +45,7 @@ const ItemList = ({ items, onDelete, onUpdate }) => {
                 />
               </label>
               <div className="mt-2 flex gap-2">
-                <button onClick={saveEdit} className="bg-[#328E6E] hover:bg-[#67AE6E] text-white px-3 py-1 rounded transition">Save</button>
+                <button onClick={saveEdit} className="bg-[#20604f] hover:bg-[#67AE6E] text-white px-3 py-1 rounded transition">Save</button>
                 <button onClick={cancelEdit} className="bg-gray-300 text-gray-700 px-3 py-1 rounded">Cancel</button>
               </div>
             </>

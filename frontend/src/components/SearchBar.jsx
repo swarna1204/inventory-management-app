@@ -33,7 +33,7 @@ const SearchBar = ({ onResult }) => {
       />
       <button
         onClick={handleSearch}
-        className="bg-[#328E6E] hover:bg-[#67AE6E] text-white px-4 py-2 rounded"
+        className="bg-[#20604f] hover:bg-[#67AE6E] text-white px-4 py-2 rounded"
       >
         Search
       </button>

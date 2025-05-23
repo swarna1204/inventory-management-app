@@ -75,7 +75,7 @@ function InventoryApp() {
   return (
     <main className="min-h-screen bg-[#E1EEBC] text-gray-900 p-4 relative">
       <div className="max-w-5xl mx-auto pb-24">
-        <h1 className="text-4xl font-bold text-center mb-6 text-[#328E6E]">
+        <h1 className="text-4xl font-bold text-center mb-6 text-[#20604f]">
           Fruits & Vegetables Inventory
         </h1>
 
@@ -103,7 +103,7 @@ function InventoryApp() {
         </div>
 
         <section className="bg-white p-6 rounded shadow mb-6 border border-[#90C67C]">
-          <h2 className="text-xl font-semibold mb-4 text-[#328E6E]">Add New Item</h2>
+          <h2 className="text-xl font-semibold mb-4 text-[#20604f]">Add New Item</h2>
           <Suspense fallback={<div>Loading Add Item Form...</div>}>
             <AddItemForm onItemAdded={handleAddItem} />
           </Suspense>
@@ -118,7 +118,7 @@ function InventoryApp() {
 
       <button
         onClick={goToAuditLogs}
-        className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-[#328E6E] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#67AE6E] transition"
+        className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-[#20604f] text-white px-6 py-3 rounded-full shadow-lg hover:bg-[#67AE6E] transition"
       >
         Check Audit Logs
       </button>

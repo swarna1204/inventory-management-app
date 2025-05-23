@@ -27,7 +27,7 @@ function AuditLogs() {
   return (
     <div className="min-h-screen bg-[#E1EEBC] text-gray-900 p-6">
       <div className="max-w-6xl mx-auto bg-white p-6 rounded shadow-lg border border-[#90C67C]">
-        <h1 className="text-2xl font-bold mb-4 text-[#328E6E]">Today's Audit Logs</h1>
+        <h1 className="text-2xl font-bold mb-4 text-[#20604f]">Today's Audit Logs</h1>
 
         {loading && <p>Loading logs...</p>}
         {error && <p className="text-red-500">{error}</p>}
@@ -63,7 +63,7 @@ function AuditLogs() {
 
         <Link
           to="/"
-          className="mt-6 inline-block text-[#328E6E] hover:underline font-medium"
+          className="mt-6 inline-block text-[#20604f] hover:underline font-medium"
           aria-label="Return to main inventory dashboard"
           title="Go back to inventory dashboard"
         >
