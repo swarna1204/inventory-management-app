@@ -41,9 +41,7 @@ const AddItemForm = ({ onItemAdded }) => {
 
   return (
     <section aria-labelledby="add-item-heading">
-      <h2 id="add-item-heading" className="text-xl font-semibold mb-4 text-[#328E6E]">
-        Add New Item
-      </h2>
+      
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="item-name" className="block text-sm font-medium text-gray-700">
