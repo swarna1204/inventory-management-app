@@ -20,24 +20,30 @@ const ItemList = ({ items, onDelete, onUpdate }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {items.map(item => (
-        <div key={item._id} className="p-4 bg-white rounded shadow border border-[#90C67C]">
-          <h3 className="text-lg font-bold text-[#328E6E]">{item.name}</h3>
+        <section key={item._id} className="p-4 bg-white rounded shadow border border-[#90C67C]" aria-labelledby={`item-${item._id}`}>
+          <h3 id={`item-${item._id}`} className="text-lg font-bold text-[#328E6E]">{item.name}</h3>
           {editingId === item._id ? (
             <>
-              <input
-                type="number"
-                className="w-full mt-2 p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring-2 focus:ring-[#90C67C]"
-                value={editValues.price}
-                onChange={e => setEditValues({ ...editValues, price: e.target.value })}
-                placeholder="Add new price"
-              />
-              <input
-                type="number"
-                className="w-full mt-2 p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring-2 focus:ring-[#90C67C]"
-                value={editValues.quantity}
-                onChange={e => setEditValues({ ...editValues, quantity: e.target.value })}
-                placeholder="Add new quantity"
-              />
+              <label className="block mt-2 text-sm font-medium text-gray-700">
+                Price
+                <input
+                  type="number"
+                  className="w-full mt-1 p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring-2 focus:ring-[#90C67C]"
+                  value={editValues.price}
+                  onChange={e => setEditValues({ ...editValues, price: e.target.value })}
+                  placeholder="Add new price"
+                />
+              </label>
+              <label className="block mt-2 text-sm font-medium text-gray-700">
+                Quantity
+                <input
+                  type="number"
+                  className="w-full mt-1 p-2 border border-[#67AE6E] rounded focus:outline-none focus:ring-2 focus:ring-[#90C67C]"
+                  value={editValues.quantity}
+                  onChange={e => setEditValues({ ...editValues, quantity: e.target.value })}
+                  placeholder="Add new quantity"
+                />
+              </label>
               <div className="mt-2 flex gap-2">
                 <button onClick={saveEdit} className="bg-[#328E6E] hover:bg-[#67AE6E] text-white px-3 py-1 rounded transition">Save</button>
                 <button onClick={cancelEdit} className="bg-gray-300 text-gray-700 px-3 py-1 rounded">Cancel</button>
@@ -55,7 +61,7 @@ const ItemList = ({ items, onDelete, onUpdate }) => {
               </div>
             </>
           )}
-        </div>
+        </section>
       ))}
     </div>
   );
