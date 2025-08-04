@@ -21,7 +21,7 @@ const AddItemForm = ({ onItemAdded }) => {
     };
 
     try {
-      const response = await axios.post('https://inventory-management-app-otbf.onrender.com/api/items', newItem);
+      const response = await axios.post('${process.env.REACT_APP_API_URL}/api/items', newItem);
       onItemAdded(response.data);
 
       // Reset form fields

@@ -19,7 +19,7 @@ function InventoryApp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('https://inventory-management-app-otbf.onrender.com/api/items')
+    axios.get('${process.env.REACT_APP_API_URL}/api/items')
       .then(res => setItems(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -33,7 +33,7 @@ function InventoryApp() {
 
   const handleDeleteItem = async (id) => {
     try {
-      await axios.delete(`https://inventory-management-app-otbf.onrender.com/api/items/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/items/${id}`);
       setItems(items.filter(item => item._id !== id));
       setSuccess('Item deleted.');
       setError('');
@@ -44,7 +44,7 @@ function InventoryApp() {
 
   const handleUpdateItem = async (id, price, quantity) => {
     try {
-      const res = await axios.put(`https://inventory-management-app-otbf.onrender.com/api/items/${id}`, {
+      const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/items/${id}`, {
         price: parseFloat(price),
         quantity: parseInt(quantity)
       });
