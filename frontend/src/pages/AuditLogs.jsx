@@ -11,7 +11,7 @@ function AuditLogs() {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const res = await axios.get('${process.env.REACT_APP_API_URL}/api/items/logs');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/items/logs`);
         const sortedLogs = res.data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setLogs(sortedLogs);
       } catch (err) {
