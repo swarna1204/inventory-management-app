@@ -19,7 +19,7 @@ function InventoryApp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('${process.env.REACT_APP_API_URL}/api/items')
+    axios.get(`${process.env.REACT_APP_API_URL}/api/items`)
       .then(res => setItems(res.data))
       .catch(err => console.error(err));
   }, []);
