@@ -10,9 +10,13 @@ const itemRoutes = require('./routes/itemRoutes'); // Import itemRoutes once
 dotenv.config();
 connectDB();
 
-// Configuring the CORS to allow requests from both localhost:5173 and localhost:5174 
+// ✅ UPDATED: Configuring the CORS to allow requests from localhost AND Netlify
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'], // Allow requests from both frontend ports
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:5174',
+        'https://fullstackinventorymanagement.netlify.app'  // ⭐ Added your Netlify domain!
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
     credentials: true, // Allow credentials if needed (cookies, authorization headers)
 }));
