@@ -8,7 +8,7 @@ const SearchBar = ({ onResult }) => {
 
   const handleSearch = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/items/search?name=${searchTerm}`);
+      const res = await axios.get(`https://inventory-management-app-otbf.onrender.com/api/items/search?name=${searchTerm}`);
       onResult([res.data]);
       setError('');
     } catch {

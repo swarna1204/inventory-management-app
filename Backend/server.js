@@ -29,7 +29,7 @@ app.use(helmet({
             scriptSrc: ["'self'", "https://trusted-cdn.com"],
             styleSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https://your-image-source.com"], // Adjust domain
-            connectSrc: ["'self'", "http://localhost:5000"], //  API/backend origin
+            connectSrc: ["'self'", "https://inventory-management-app-otbf.onrender.com"], //  API/backend origin
         },
     },
     referrerPolicy: { policy: "no-referrer" },

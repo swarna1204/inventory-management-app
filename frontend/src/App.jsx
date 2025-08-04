@@ -19,7 +19,7 @@ function InventoryApp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/items')
+    axios.get('https://inventory-management-app-otbf.onrender.com/api/items')
       .then(res => setItems(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -33,7 +33,7 @@ function InventoryApp() {
 
   const handleDeleteItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/items/${id}`);
+      await axios.delete(`https://inventory-management-app-otbf.onrender.com/api/items/${id}`);
       setItems(items.filter(item => item._id !== id));
       setSuccess('Item deleted.');
       setError('');
@@ -44,7 +44,7 @@ function InventoryApp() {
 
   const handleUpdateItem = async (id, price, quantity) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/items/${id}`, {
+      const res = await axios.put(`https://inventory-management-app-otbf.onrender.com/api/items/${id}`, {
         price: parseFloat(price),
         quantity: parseInt(quantity)
       });
