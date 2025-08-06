@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import 'tailwindcss';
 
+// ✅ CRITICAL: Hardcoded fallback to ensure API URL is never undefined
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://inventory-management-app-otbf.onrender.com';
+
 function AuditLogs() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,21 +20,43 @@ function AuditLogs() {
       setLoading(true);
       setError('');
       
-      console.log('📡 Fetching audit logs...');
+      // ✅ Debug logging
+      console.log('🔍 Environment check:');
+      console.log('- REACT_APP_API_URL from env:', process.env.REACT_APP_API_URL);
+      console.log('- Final API_BASE_URL:', API_BASE_URL);
       
-      // ✅ Use your existing logs endpoint
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/items/logs`);
+      const fullURL = `${API_BASE_URL}/api/items/logs`;
+      console.log('📡 Fetching audit logs from:', fullURL);
+      
+      const response = await axios.get(fullURL, {
+        timeout: 15000 // 15 second timeout
+      });
       
       setLogs(response.data);
       console.log(`✅ Fetched ${response.data.length} audit logs`);
       
     } catch (err) {
-      console.error('❌ Failed to fetch audit logs:', err);
+      console.error('❌ Failed to fetch audit logs:', {
+        message: err.message,
+        status: err.response?.status,
+        statusText: err.response?.statusText,
+        data: err.response?.data,
+        url: `${API_BASE_URL}/api/items/logs`
+      });
       
-      const errorMessage = err.response?.data?.error || 
-                          err.response?.data?.message || 
-                          err.message || 
-                          'Failed to load audit logs';
+      let errorMessage = 'Failed to load audit logs';
+      
+      if (err.response?.status === 404) {
+        errorMessage = 'Audit logs endpoint not found. Please check if the backend is running.';
+      } else if (err.response?.status === 500) {
+        errorMessage = 'Server error while fetching audit logs.';
+      } else if (err.code === 'ECONNABORTED') {
+        errorMessage = 'Request timed out. Please check your connection.';
+      } else if (!err.response) {
+        errorMessage = 'Network error. Please check if the backend server is running.';
+      } else {
+        errorMessage = err.response?.data?.error || err.response?.data?.message || err.message;
+      }
       
       setError(errorMessage);
     } finally {
@@ -98,6 +123,11 @@ function AuditLogs() {
     <div className="min-h-screen bg-[#E1EEBC] text-gray-900 p-6">
       <div className="max-w-6xl mx-auto bg-white p-6 rounded shadow-lg border border-[#90C67C]">
         
+        {/* ✅ Debug info (remove in production) */}
+        <div className="mb-2 text-xs text-gray-500 bg-gray-100 p-2 rounded">
+          Debug: API URL = {API_BASE_URL}
+        </div>
+
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-[#20604f]">Today's Audit Logs</h1>

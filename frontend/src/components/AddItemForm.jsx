@@ -2,6 +2,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import 'tailwindcss';
 
+// ✅ CRITICAL: Hardcoded fallback to ensure API URL is never undefined
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://inventory-management-app-otbf.onrender.com';
+
 const AddItemForm = ({ onItemAdded }) => {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -16,7 +19,12 @@ const AddItemForm = ({ onItemAdded }) => {
     setIsSubmitting(true);
     setError('');
 
-    // ✅ Client-side validation
+    // ✅ Debug logging
+    console.log('🔍 Environment check:');
+    console.log('- REACT_APP_API_URL from env:', process.env.REACT_APP_API_URL);
+    console.log('- Final API_BASE_URL:', API_BASE_URL);
+
+    // ✅ Validation
     if (!name.trim()) {
       setError('Item name is required');
       setIsSubmitting(false);
@@ -47,7 +55,7 @@ const AddItemForm = ({ onItemAdded }) => {
       return;
     }
 
-    // ✅ Prepare data exactly as backend expects
+    // ✅ Prepare data
     const newItem = {
       name: name.trim(),
       quantity: parseInt(quantity, 10),
@@ -56,20 +64,19 @@ const AddItemForm = ({ onItemAdded }) => {
       category: category.toLowerCase().trim()
     };
 
+    // ✅ Construct full URL
+    const fullURL = `${API_BASE_URL}/api/items`;
+
     try {
       console.log('🔄 Submitting item:', newItem);
-      console.log('📡 API URL:', `${process.env.REACT_APP_API_URL}/api/items`);
+      console.log('📡 Full API URL:', fullURL);
 
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/items`, 
-        newItem,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 10000, // 10 second timeout
-        }
-      );
+      const response = await axios.post(fullURL, newItem, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout: 15000, // 15 second timeout
+      });
       
       console.log('✅ Item added successfully:', response.data);
       
@@ -78,7 +85,7 @@ const AddItemForm = ({ onItemAdded }) => {
         onItemAdded(response.data);
       }
 
-      // ✅ Reset form after successful submission
+      // Reset form
       setName('');
       setQuantity('');
       setPrice('');
@@ -91,25 +98,22 @@ const AddItemForm = ({ onItemAdded }) => {
         status: err.response?.status,
         statusText: err.response?.statusText,
         data: err.response?.data,
+        url: fullURL,
         requestData: newItem
       });
       
-      // ✅ Handle different error types
+      // Handle different error types
       if (err.response?.status === 400) {
         const errorData = err.response.data;
-        if (errorData.details && Array.isArray(errorData.details)) {
-          setError(`Validation Error: ${errorData.details.join(', ')}`);
-        } else if (errorData.error) {
-          setError(`Error: ${errorData.error}`);
-        } else {
-          setError('Bad request. Please check your input.');
-        }
+        setError(`Validation Error: ${errorData.error || errorData.message || 'Invalid data'}`);
+      } else if (err.response?.status === 404) {
+        setError('API endpoint not found. Please check if the backend is running.');
       } else if (err.response?.status === 500) {
         setError('Server error. Please try again later.');
       } else if (err.code === 'ECONNABORTED') {
         setError('Request timed out. Please check your connection.');
       } else if (!err.response) {
-        setError('Network error. Please check your internet connection.');
+        setError('Network error. Please check if the backend server is running.');
       } else {
         setError(`Failed to add item: ${err.response?.statusText || err.message}`);
       }
@@ -118,7 +122,6 @@ const AddItemForm = ({ onItemAdded }) => {
     }
   };
 
-  // ✅ Get today's date for minimum date validation
   const getTodayDate = () => {
     const today = new Date();
     return today.toISOString().split('T')[0];
@@ -126,6 +129,11 @@ const AddItemForm = ({ onItemAdded }) => {
 
   return (
     <section aria-labelledby="add-item-heading">
+      {/* ✅ Debug info (remove in production) */}
+      <div className="mb-2 text-xs text-gray-500">
+        API URL: {API_BASE_URL}
+      </div>
+
       {error && (
         <div className="mb-4 bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-sm">
           {error}
